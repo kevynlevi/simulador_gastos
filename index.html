@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Simulador de Gastos Universitários - Itabuna</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Simulador de Gastos Universitários</h1>
+    <p class="subtitulo">Planeje seus gastos mensais como estudante em Itabuna.</p>
+
+    <div class="formulario">
+      <div class="campo">
+        <label for="bairro">Bairro/Moradia:</label>
+        <select id="bairro">
+          <option value="centro">Centro (R$ 600)</option>
+          <option value="santoAntonio">Santo Antônio (R$ 450)</option>
+          <option value="california">Califórnia (R$ 400)</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="alimentacao">Alimentação (R$):</label>
+        <input type="number" id="alimentacao" value="300">
+      </div>
+
+      <div class="campo">
+        <label for="transporte">Transporte (R$):</label>
+        <input type="number" id="transporte" value="150">
+      </div>
+
+      <div class="campo">
+        <label for="material">Material de estudo (R$):</label>
+        <input type="number" id="material" value="100">
+      </div>
+
+      <button onclick="calcular()">Calcular Gastos</button>
+
+      <h2 id="resultado">Total: R$ 0</h2>
+      <p id="mensagem"></p>
+    </div>
+
+    <div class="informativo">
+      <h3>Faculdades na Região</h3>
+      <ul>
+        <li><a href="https://www.uesc.br" target="_blank">UESC - Universidade Estadual de Santa Cruz</a></li>
+        <li><a href="https://www.ufsb.edu.br" target="_blank">UFSB - Universidade Federal do Sul da Bahia</a></li>
+        <li><a href="https://unex.edu.br" target="_blank">UNEX - Centro Universitário de Excelência</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
