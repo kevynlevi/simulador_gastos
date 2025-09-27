@@ -1,57 +1,137 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Simulador de Gastos Universitários - Itabuna</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blog Universitário — Mockup</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <div class="container">
-    <h1>Simulador de Gastos Universitários</h1>
-    <p class="subtitulo">Planeje seus gastos mensais como estudante em Itabuna.</p>
+  <div class="frame" role="main">
+    <header>
+      <div class="brand">Blog Universitário</div>
+      <div class="hamburger" aria-hidden="true">☰</div>
+    </header>
 
-    <div class="formulario">
-      <div class="campo">
-        <label for="bairro">Bairro/Moradia:</label>
-        <select id="bairro">
-          <option value="centro">Centro (R$ 600)</option>
-          <option value="santoAntonio">Santo Antônio (R$ 450)</option>
-          <option value="california">Califórnia (R$ 400)</option>
-        </select>
+    <section class="hero" aria-label="Destaque">
+      <h1>Informação universitária e regional em um só lugar</h1>
+    </section>
+
+    <section aria-labelledby="fac-title">
+      <h2 id="fac-title">Faculdades</h2>
+      <div class="faculties">
+        <article class="card">
+          <img
+            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s="
+            alt="UNEX">
+          <div class="body">
+            <div class="title">UNEX</div>
+            <a href="#unex" class="btn">Saiba mais</a>
+          </div>
+        </article>
+        <article class="card">
+          <img
+            src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s="
+            alt="UFSB">
+          <div class="body">
+            <div class="title">UFSB</div>
+            <a href="#ufsb" class="btn">Saiba mais</a>
+          </div>
+        </article>
+        <article class="card">
+          <img
+            src="https://images.unsplash.com/photo-1503428593586-e225b39bddfe?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s="
+            alt="UESC">
+          <div class="body">
+            <div class="title">UESC</div>
+            <a href="#uesc" class="btn">Saiba mais</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="grid-2" aria-label="Informativos">
+      <div>
+        <h2>Região</h2>
+        <p class="lead">Informações sobre a região: cultura, pontos turísticos e estilo de vida local.</p>
+      </div>
+      <div>
+        <h2>Mercado</h2>
+        <p class="lead">Panorama do mercado de trabalho, estágios e oportunidades para estudantes.</p>
       </div>
 
-      <div class="campo">
-        <label for="alimentacao">Alimentação (R$):</label>
-        <input type="number" id="alimentacao" value="300">
+      <div>
+        <h2>Entretenimento</h2>
+        <p class="lead">Dicas de lazer: bares, cinemas, eventos e locais de encontro estudantil.</p>
       </div>
-
-      <div class="campo">
-        <label for="transporte">Transporte (R$):</label>
-        <input type="number" id="transporte" value="150">
+      <div>
+        <h2>Sobre as Faculdades</h2>
+        <p class="lead">Resumo das instituições: cursos, acesso e contatos úteis.</p>
       </div>
+    </section>
 
-      <div class="campo">
-        <label for="material">Material de estudo (R$):</label>
-        <input type="number" id="material" value="100">
+    <section aria-labelledby="calc-title">
+      <h2 id="calc-title">Calculadora de gastos</h2>
+      <div class="calculator" id="calculator">
+        <div class="row">
+          <div class="field">
+            <label for="cidade">Cidade</label>
+            <select id="cidade" aria-label="Cidade">
+              <option value="">Selecione a cidade</option>
+              <option>Itabuna</option>
+              <option>Ilhéus</option>
+              <option>Brumado</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bairro">Bairro</label>
+            <select id="bairro" aria-label="Bairro">
+              <option value="">Selecione o bairro</option>
+              <option>Centro</option>
+              <option>Residencial</option>
+              <option>Universitário</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="faculdade">Faculdade</label>
+            <select id="faculdade" aria-label="Faculdade">
+              <option value="">Selecione a faculdade</option>
+              <option>UNEX</option>
+              <option>UFSB</option>
+              <option>UESC</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="transporte">Transporte (R$ / mês)</label>
+            <input type="number" id="transporte" placeholder="Ex: 150" min="0" />
+          </div>
+          <div class="field">
+            <label for="alimentacao">Alimentação (R$ / mês)</label>
+            <input type="number" id="alimentacao" placeholder="Ex: 600" min="0" />
+          </div>
+          <div class="field">
+            <label for="materiais">Materiais de estudo (R$ / mês)</label>
+            <input type="number" id="materiais" placeholder="Ex: 80" min="0" />
+          </div>
+        </div>
+
+        <div class="total-box" aria-live="polite">
+          <div class="total">Total: <span id="totalValue">R$ 0,00</span></div>
+          <div class="status" id="statusText">Seus gastos estão baixos</div>
+        </div>
+
       </div>
+    </section>
 
-      <button onclick="calcular()">Calcular Gastos</button>
-
-      <h2 id="resultado">Total: R$ 0</h2>
-      <p id="mensagem"></p>
-    </div>
-
-    <div class="informativo">
-      <h3>Faculdades na Região</h3>
-      <ul>
-        <li><a href="https://www.uesc.br" target="_blank">UESC - Universidade Estadual de Santa Cruz</a></li>
-        <li><a href="https://www.ufsb.edu.br" target="_blank">UFSB - Universidade Federal do Sul da Bahia</a></li>
-        <li><a href="https://unex.edu.br" target="_blank">UNEX - Centro Universitário de Excelência</a></li>
-      </ul>
-    </div>
-
+    <footer style="margin-top:18px;color:var(--muted);font-size:13px">
+      <div>Links úteis: sites oficiais das faculdades | Contato: contato@bloguniversitario.local</div>
+      <div style="margin-top:8px">© 2025 Blog Universitário</div>
+    </footer>
   </div>
 
   <script src="script.js"></script>

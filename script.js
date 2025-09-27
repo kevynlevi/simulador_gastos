@@ -1,26 +1,39 @@
-function calcular() {
-    const bairro = document.getElementById("bairro").value;
-    const alimentacao = parseFloat(document.getElementById("alimentacao").value) || 0;
-    const transporte = parseFloat(document.getElementById("transporte").value) || 0;
-    const material = parseFloat(document.getElementById("material").value) || 0;
+// Lógica simples da calculadora
+const transporte = document.getElementById('transporte');
+const alimentacao = document.getElementById('alimentacao');
+const materiais = document.getElementById('materiais');
+const totalValue = document.getElementById('totalValue');
+const statusText = document.getElementById('statusText');
 
-    let aluguel = 0;
-    if (bairro === "centro") aluguel = 600;
-    if (bairro === "santoAntonio") aluguel = 450;
-    if (bairro === "california") aluguel = 400;
-
-    const total = aluguel + alimentacao + transporte + material;
-
-    document.getElementById("resultado").innerText = `Total estimado: R$ ${total}`;
-
-    let mensagem = "";
-    if (total > 1500) {
-        mensagem = "⚠ Seus gastos estão altos! Considere dividir moradia ou economizar na alimentação.";
-    } else if (total > 1000) {
-        mensagem = "💡 Seus gastos estão moderados, mas sempre é bom buscar economizar.";
-    } else {
-        mensagem = "✅ Seus gastos estão controlados! Ótimo planejamento.";
-    }
-
-    document.getElementById("mensagem").innerText = mensagem;
+function formatBRL(n) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n || 0);
 }
+
+function calcular() {
+    const t = Number(transporte.value) || 0;
+    const a = Number(alimentacao.value) || 0;
+    const m = Number(materiais.value) || 0;
+    const total = t + a + m;
+    totalValue.textContent = formatBRL(total);
+
+    // Regra heurística para classificação:
+    // - Abaixo de R$ 800 => baixo
+    // - R$ 800 a R$ 1800 => médio
+    // - Acima de R$ 1800 => alto
+    if (total <= 800) {
+        statusText.textContent = 'Seus gastos estão baixos';
+        statusText.style.color = '#2b7a3a';
+    } else if (total <= 1800) {
+        statusText.textContent = 'Seus gastos estão moderados';
+        statusText.style.color = '#a67b00';
+    } else {
+        statusText.textContent = 'Seus gastos estão altos';
+        statusText.style.color = '#a02b2b';
+    }
+}
+
+// recalcula quando qualquer campo muda
+[transporte, alimentacao, materiais].forEach(el => el.addEventListener('input', calcular));
+
+// calcula ao carregar (mostra 0)
+calcular();

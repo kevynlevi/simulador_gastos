@@ -1,0 +1,233 @@
+/* Reset simples */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html,
+body {
+  height: 100%
+}
+
+/* Tipografia */
+:root {
+  --bg: #f7f7f7;
+  --panel: #ffffff;
+  --muted: #9aa0a6;
+  --accent: #2b3a42;
+  /* tom neutro escuro */
+  --card-shadow: 0 6px 18px rgba(34, 34, 34, 0.06);
+  --radius: 12px;
+  --gap: 20px;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--bg);
+  color: var(--accent);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.45;
+  padding: 28px 24px;
+}
+
+/* Container central (simula largura de PC com colunas centradas) */
+.frame {
+  max-width: 920px;
+  margin: 0 auto;
+  background: linear-gradient(#ffffff, #fbfbfb);
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 24px
+}
+
+.hamburger {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px
+}
+
+/* Hero */
+.hero {
+  background-image: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=');
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  padding: 44px 28px;
+  color: white;
+  margin-bottom: 24px;
+  min-height: 180px;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 12px 34px rgba(17, 17, 17, 0.06) inset;
+}
+
+.hero h1 {
+  font-size: 28px;
+  max-width: 70%;
+  font-weight: 700;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.18)
+}
+
+/* Seções */
+section {
+  margin-bottom: 22px
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 12px
+}
+
+p.lead {
+  color: var(--muted);
+  margin-bottom: 12px
+}
+
+/* Cards de faculdades */
+.faculties {
+  display: flex;
+  gap: 16px
+}
+
+.card {
+  background: var(--panel);
+  border-radius: 12px;
+  overflow: hidden;
+  flex: 1;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(16, 16, 16, 0.03)
+}
+
+.card img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block
+}
+
+.card .body {
+  padding: 14px
+}
+
+.card .title {
+  font-weight: 700;
+  margin-bottom: 8px
+}
+
+.card .btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #f2f4f5;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600
+}
+
+/* Grid duas colunas para região/mercado */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px
+}
+
+.box {
+  background: var(--panel);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(16, 16, 16, 0.03)
+}
+
+/* Calculadora */
+.calculator {
+  background: var(--panel);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(16, 16, 16, 0.03)
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px
+}
+
+.row .field {
+  flex: 1
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e7e9ea;
+  background: #fff;
+  font-size: 15px
+}
+
+.total-box {
+  margin-top: 12px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.03)
+}
+
+.total-box .total {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 8px
+}
+
+.status {
+  font-weight: 600;
+  color: #2b3a42
+}
+
+/* Responsividade */
+@media (max-width:780px) {
+  .faculties {
+    flex-direction: column
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr
+  }
+
+  .row {
+    flex-direction: column
+  }
+
+  .hero {
+    min-height: 140px;
+    padding: 20px
+  }
+}
