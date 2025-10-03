@@ -1,14 +1,25 @@
+// --- Elementos do DOM ---
 const cidade = document.getElementById('cidade');
 const bairro = document.getElementById('bairro');
 const faculdade = document.getElementById('faculdade');
 const outro = document.getElementById('outro');
 const transporte = document.getElementById('transporte');
+const transporteBox = document.getElementById('transporteBox');
 const alimentacao = document.getElementById('alimentacao');
-const materiais = document.getElementById('materiais');
 const totalValue = document.getElementById('totalValue');
 const statusText = document.getElementById('statusText');
+const valorMensalidade = document.getElementById('valorMensalidade');
+const mensalidadeBox = document.getElementById('mensalidadeBox');
+const formaMensal = document.getElementById('mensal');
+const formaAvista = document.getElementById('avista');
+const qtdIdas = document.getElementById('qtdIdas');
+const qtdIdasBox = document.getElementById('quantidadeIdasBox');
 
-// Função para formatar BRL
+// --- Variáveis de controle ---
+let mesmaCidade = null;
+let precisaTransporte = false;
+
+// --- Funções auxiliares ---
 function formatBRL(n) {
     return new Intl.NumberFormat('pt-BR', {
         style: 'currency',
@@ -16,76 +27,112 @@ function formatBRL(n) {
     }).format(n || 0);
 }
 
-// Popup dinâmica
 function showPopupPergunta(callback) {
     const overlay = document.createElement('div');
     overlay.className = 'popup-overlay';
     overlay.innerHTML = `
     <div class="popup">
-    <p>Você pertence à mesma cidade da faculdade?</p>
-    <button id="btnSim">Sim</button>
-    <button id="btnNao">Não</button>
+      <p>Você pertence à mesma cidade da faculdade?</p>
+      <button id="btnSim">Sim</button>
+      <button id="btnNao">Não</button>
     </div>
-`;
+  `;
     document.body.appendChild(overlay);
 
     document.getElementById('btnSim').onclick = () => {
         document.body.removeChild(overlay);
         callback(true);
     };
+
     document.getElementById('btnNao').onclick = () => {
         document.body.removeChild(overlay);
         callback(false);
     };
 }
 
-// Lógica da calculadora
+function showPopupDistancia(callback) {
+    const overlay = document.createElement('div');
+    overlay.className = 'popup-overlay';
+    overlay.innerHTML = `
+    <div class="popup">
+      <p>Sua faculdade é distante o suficiente para precisar de transporte?</p>
+      <button id="btnSimDistancia">Sim</button>
+      <button id="btnNaoDistancia">Não</button>
+    </div>
+  `;
+    document.body.appendChild(overlay);
+
+    document.getElementById('btnSimDistancia').onclick = () => {
+        document.body.removeChild(overlay);
+        callback(true);
+    };
+
+    document.getElementById('btnNaoDistancia').onclick = () => {
+        document.body.removeChild(overlay);
+        callback(false);
+    };
+}
+
+function resetarCampos() {
+    bairro.value = '';
+    outro.value = '';
+    transporte.value = '';
+    alimentacao.value = '';
+    valorMensalidade.value = '';
+    qtdIdas.value = '';
+
+    bairro.style.display = 'none';
+    outro.style.display = 'none';
+    transporteBox.style.display = 'none';
+    alimentacao.parentElement.style.display = 'none';
+    mensalidadeBox.style.display = 'none';
+    qtdIdasBox.style.display = 'none';
+}
+
+function mostrarMensalidade() {
+    mensalidadeBox.style.display = 'block';
+}
+
+function mostrarAlimentacaoEMensalidade() {
+    alimentacao.parentElement.style.display = 'block';
+    mostrarMensalidade();
+}
+
 function calcular() {
-    let b = 0;
+    let aluguel = 0;
 
     switch (bairro.value) {
-        case '':
-            totalValue.textContent = formatBRL(0);
-            statusText.textContent = 'Por favor, selecione seu bairro';
-            statusText.style.color = '#000';
-            outro.style.display = 'none';
-            outro.value = '';
-            return;
-
-        case 'centro':
-            b = 600;
-            outro.style.display = 'none';
-            outro.value = '';
-            break;
-
-        case 'santoAntonio':
-            b = 450;
-            outro.style.display = 'none';
-            outro.value = '';
-            break;
-
-        case 'california':
-            b = 400;
-            outro.style.display = 'none';
-            outro.value = '';
-            break;
-
+        case 'centro': aluguel = 600; break;
+        case 'santoAntonio': aluguel = 450; break;
+        case 'california': aluguel = 400; break;
         case 'outro':
-            outro.style.display = 'flex';
-            b = Number(outro.value) || 0;
-            break;
-
-        default:
-            outro.style.display = 'none';
-            outro.value = '';
+            aluguel = Number(outro.value) || 0;
             break;
     }
 
-    const t = Number(transporte.value) || 0;
-    const a = Number(alimentacao.value) || 0;
-    const m = Number(materiais.value) || 0;
+    let transporteTotal = 0;
+    const valorTransporte = Number(transporte.value) || 0;
+    const idas = Number(qtdIdas.value) || 0;
 
-    const total = b + t + a + m;
+    if (!mesmaCidade) {
+        transporteTotal = valorTransporte;
+    } else if (precisaTransporte) {
+        transporteTotal = valorTransporte * 2 * idas;
+    }
+
+    const aliment = Number(alimentacao.value) || 0;
+
+    let mensalidade = 0;
+    const valor = Number(valorMensalidade.value) || 0;
+
+    if (formaMensal.checked) {
+        mensalidade = valor * 6;
+    } else if (formaAvista.checked) {
+        mensalidade = valor;
+    }
+
+    const total = aluguel + transporteTotal + aliment + mensalidade;
+
     totalValue.textContent = formatBRL(total);
 
     if (total <= 800) {
@@ -100,56 +147,74 @@ function calcular() {
     }
 }
 
-// Exibe campos dinamicamente
-function mostrarCamposBairroFaculdade() {
-    bairro.style.display = 'block';
-    faculdade.style.display = 'block';
-}
-
-function mostrarCamposTransporte() {
-    transporte.parentElement.style.display = 'block';
-}
-
-function mostrarCamposFinais() {
-    alimentacao.parentElement.style.display = 'block';
-    materiais.parentElement.style.display = 'block';
-}
-
-// Evento: quando muda cidade
+// --- Eventos ---
 cidade.addEventListener('change', () => {
     if (!cidade.value) return;
 
-    showPopupPergunta((mesmaCidade) => {
-        if (mesmaCidade) {
-            mostrarCamposBairroFaculdade();
+    resetarCampos();
+
+    showPopupPergunta((resposta) => {
+        mesmaCidade = resposta;
+
+        if (!mesmaCidade) {
+            transporteBox.style.display = 'block';
+
+            transporte.addEventListener('input', () => {
+                if (transporte.value) {
+                    mostrarAlimentacaoEMensalidade();
+                }
+                calcular();
+            });
+
+        } else {
+            bairro.style.display = 'block';
         }
     });
 });
 
-// Evento: quando muda bairro
 bairro.addEventListener('change', () => {
     const bairrosComValor = ['centro', 'santoAntonio', 'california'];
 
     if (bairrosComValor.includes(bairro.value)) {
-        transporte.parentElement.style.display = 'none';
-        mostrarCamposFinais();
+        outro.style.display = 'none';
+
+        showPopupDistancia((resposta) => {
+            precisaTransporte = resposta;
+
+            if (precisaTransporte) {
+                transporteBox.style.display = 'block';
+                qtdIdasBox.style.display = 'block';
+
+                transporte.addEventListener('input', calcular);
+                qtdIdas.addEventListener('input', calcular);
+            }
+
+            mostrarAlimentacaoEMensalidade();
+            calcular();
+        });
+
     } else if (bairro.value === 'outro') {
-        mostrarCamposTransporte();
-        mostrarCamposFinais();
+        outro.style.display = 'flex';
+        transporteBox.style.display = 'block';
+        mostrarAlimentacaoEMensalidade();
     }
 
     calcular();
 });
 
-// Recalcular ao digitar em qualquer campo
-[outro, transporte, alimentacao, materiais].forEach(el =>
-    el.addEventListener('input', calcular)
-);
+// Eventos de input para recalcular sempre
+[
+    outro,
+    transporte,
+    alimentacao,
+    valorMensalidade,
+    qtdIdas
+].forEach(el => el.addEventListener('input', calcular));
 
-// Também recalcula ao mudar seleções
-[bairro, faculdade].forEach(el =>
+[formaMensal, formaAvista].forEach(el =>
     el.addEventListener('change', calcular)
 );
 
-// Executa ao carregar a página (estado inicial)
+// Executa ao carregar a página
 calcular();
+// Foco no primeiro campo

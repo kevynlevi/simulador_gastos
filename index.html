@@ -79,6 +79,7 @@
               <option>Brumado</option>
             </select>
           </div>
+
           <div class="field">
             <label for="bairro">Bairro</label>
             <select id="bairro" aria-label="Bairro">
@@ -91,6 +92,7 @@
             <input type="number" name="outro" id="outro" placeholder="Se outro, especifique (R$)" min="0"
               style="margin-top:8px; display:none;" />
           </div>
+
           <div class="field">
             <label for="faculdade">Faculdade</label>
             <select id="faculdade" aria-label="Faculdade">
@@ -103,27 +105,43 @@
         </div>
 
         <div class="row">
-          <div class="field">
-            <label for="transporte">Transporte (R$ / mês)</label>
-            <input type="number" id="transporte" placeholder="Ex: 150" min="0" />
+
+          <!-- 🔧 CAMPO DE TRANSPORTE AGORA TEM ID NO CONTAINER -->
+          <div class="field" id="transporteBox" style="display: none;">
+            <label for="transporte">Transporte (R$ / ida)</label>
+            <input type="number" id="transporte" placeholder="Ex: 10" min="0" />
           </div>
+
           <div class="field">
             <label for="alimentacao">Alimentação (R$ / mês)</label>
             <input type="number" id="alimentacao" placeholder="Ex: 600" min="0" />
           </div>
-          <div class="field">
-            <label for="materiais">Materiais de estudo (R$ / mês)</label>
-            <input type="number" id="materiais" placeholder="Ex: 80" min="0" />
+
+          <div class="field" id="mensalidadeBox" style="display:none;">
+            <label>Mensalidade da Faculdade</label>
+            <div>
+              <input type="radio" name="formaPagamento" id="mensal" checked>
+              <label for="mensal">Mensal</label>
+              <input type="radio" name="formaPagamento" id="avista">
+              <label for="avista">À vista (semestre)</label>
+            </div>
+            <input type="number" id="valorMensalidade" placeholder="Ex: 800" min="0" />
           </div>
-        </div>
 
-        <div class="total-box" aria-live="polite">
-          <div class="total">Total: <span id="totalValue">R$ 0,00</span></div>
-          <div class="status" id="statusText">Seus gastos estão baixos</div>
-        </div>
+          <div class="field" id="quantidadeIdasBox" style="display:none;">
+            <label for="qtdIdas">Quantas vezes por mês você vai à faculdade?</label>
+            <input type="number" id="qtdIdas" placeholder="Ex: 20" min="0" />
+          </div>
 
+          <div class="total-box" aria-live="polite">
+            <div class="total">Total: <span id="totalValue">R$ 0,00</span></div>
+            <div class="status" id="statusText">Seus gastos estão baixos</div>
+          </div>
+
+        </div>
       </div>
     </section>
+
 
     <footer style="margin-top:18px;color:var(--muted);font-size:13px">
       <div>Links úteis: sites oficiais das faculdades | Contato: contato@bloguniversitario.local</div>

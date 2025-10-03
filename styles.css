@@ -281,3 +281,40 @@ input[type="number"] {
 .popup button:hover {
   background: #1e2a30;
 }
+
+/* Novos campos de mensalidade */
+#mensalidadeBox {
+  display: none;
+}
+
+#quantidadeIdasBox {
+  display: none;
+}
+
+/* Radios da mensalidade */
+#mensalidadeBox label {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 14px;
+  color: var(--accent);
+}
+
+#mensalidadeBox input[type="radio"] {
+  margin-right: 6px;
+  accent-color: var(--accent);
+}
+
+#mensalidadeBox input[type="number"] {
+  margin-top: 10px;
+}
+
+/* Ajuste para quando inputs forem visíveis */
+input[type="number"]:not([style*="display:none"]),
+select:not([style*="display:none"]) {
+  display: block;
+}
+
+/* Melhor controle de inputs condicionais */
+.field[style*="display: none"] {
+  display: none !important;
+}
